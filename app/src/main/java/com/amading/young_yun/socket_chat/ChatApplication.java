@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 
 public class ChatApplication extends Application {
 
-    private Socket mSocket;
+    private static Socket mSocket;
     {
         try {
             mSocket = IO.socket(Constants.CHAT_SERVER_URL);
@@ -19,7 +19,7 @@ public class ChatApplication extends Application {
         }
     }
 
-    public Socket getSocket() {
+    public static Socket getSocket() {
         return mSocket;
     }
 }

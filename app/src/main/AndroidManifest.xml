@@ -21,6 +21,8 @@
             android:theme="@style/Theme.AppCompat"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
+        <activity android:name=".RoominAcivity"
+            />
     </application>
 
 </manifest>

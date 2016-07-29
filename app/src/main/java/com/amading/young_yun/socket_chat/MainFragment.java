@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ public class MainFragment extends Fragment {
     private Handler mTypingHandler = new Handler();
     private String mUsername;
     private Socket mSocket;
+    private Button room1, room2, room3;
 
     private Boolean isConnected = true;
 
@@ -85,6 +87,9 @@ public class MainFragment extends Fragment {
         mSocket.connect();
 
         startSignIn();
+
+       //Intent intent = new Intent(getActivity(),RoominAcivity.class);
+        //startActivity(intent);
     }
 
     @Override
@@ -113,7 +118,27 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        room1= (Button) view.findViewById(R.id.room1);
+        room2 = (Button) view.findViewById(R.id.room2);
+        room3 = (Button) view.findViewById(R.id.room3);
+        room1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSocket.emit("room in","room1");
+            }
+        });
+        room2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSocket.emit("room in","room2");
+            }
+        });
+        room3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSocket.emit("room in","room3");
+            }
+        });
         mMessagesView = (RecyclerView) view.findViewById(R.id.messages);
         mMessagesView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mMessagesView.setAdapter(mAdapter);
@@ -250,6 +275,7 @@ public class MainFragment extends Fragment {
         addMessage(mUsername, message);
 
         // perform the sending message attempt.
+        //mSocket.emit("room in", "youngdo1");
         mSocket.emit("new message", message);
     }
 
