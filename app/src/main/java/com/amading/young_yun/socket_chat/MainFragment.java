@@ -124,19 +124,25 @@ public class MainFragment extends Fragment {
         room1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSocket.emit("room in","room1");
+                addRoomin("room1 join");
+                mSocket.emit("room leave");
+                mSocket.emit("room in", "room1");
             }
         });
         room2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSocket.emit("room in","room2");
+                addRoomin("room2 join");
+                mSocket.emit("room leave");
+                mSocket.emit("room in", "room2");
             }
         });
         room3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSocket.emit("room in","room3");
+                addRoomin("room3 join");
+                mSocket.emit("room leave");
+                mSocket.emit("room in", "room3");
             }
         });
         mMessagesView = (RecyclerView) view.findViewById(R.id.messages);
@@ -222,6 +228,14 @@ public class MainFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addRoomin(String roomname){
+        mMessages.add(new Message.Builder(Message.TYPE_LOG)
+                .message(roomname).build());
+        mAdapter.notifyItemInserted(mMessages.size() - 1);
+        scrollToBottom();
+
     }
 
     private void addLog(String message) {
